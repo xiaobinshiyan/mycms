@@ -53,7 +53,12 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	if (file_exists('../environment')) {
+		$env = trim(file_get_contents('../environment'));
+		//header('CI_ENV: ' . $env);
+	}
+
+	define('ENVIRONMENT', isset($env) ? $env : 'production');
 
 /*
  *---------------------------------------------------------------
@@ -66,7 +71,7 @@
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(-1);
+		error_reporting(E_ALL & ~E_NOTICE);
 		ini_set('display_errors', 1);
 	break;
 
@@ -97,7 +102,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = 'CI_system';
+	$system_path = '../CI_system';
 
 /*
  *---------------------------------------------------------------
@@ -114,7 +119,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'app';
+	$application_folder = '.';
 
 /*
  *---------------------------------------------------------------
