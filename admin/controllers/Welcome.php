@@ -20,9 +20,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		p(DX_SHARE_PATH) ;
-		$this->load->database();
-		$ss = $this->db->select('*')->from('su_admin')->get()->result_array();
+		// p(DX_SHARE_PATH) ;
+		// $ss = $this->db->select('*')->from('su_admin')->get()->result_array();
+		$this->load->model('dxdb_model','ad','admin');
+		$ss = $this->ad->one(array('id'=>1));
 		var_dump($ss);exit;
 		$this->load->view('welcome_message');
 	}

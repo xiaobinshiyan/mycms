@@ -58,7 +58,7 @@ $autoload['packages'] = array(DX_SHARE_PATH);
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','session');
+$autoload['libraries'] = array('database','session','user_agent','platform','settings');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('common');
+$autoload['helper'] = array('url','common','admin');
 
 /*
 | -------------------------------------------------------------------
