@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		p(DX_SHARE_PATH) ;
 		$this->load->database();
 		$ss = $this->db->select('*')->from('su_admin')->get()->result_array();
 		var_dump($ss);exit;

@@ -312,8 +312,10 @@ switch (ENVIRONMENT)
 
     date_default_timezone_set('Asia/Shanghai');
     //加载常量
-    require_once FCPATH . 'shared/config/constant.php';
-    require_once FCPATH . 'shared/libraries/RedisSession.php';
+    require_once FCPATH . '../shared/config/constant.php';
+    
+    // redis类 临时不用redis存储session 
+    //require_once FCPATH . 'shared/libraries/RedisSession.php';
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
