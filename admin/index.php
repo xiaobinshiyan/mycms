@@ -310,6 +310,10 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+    date_default_timezone_set('Asia/Shanghai');
+    //加载常量
+    require_once FCPATH . 'shared/config/constant.php';
+    require_once FCPATH . 'shared/libraries/RedisSession.php';
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
