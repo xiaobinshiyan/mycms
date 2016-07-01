@@ -11,8 +11,8 @@ class Welcome extends MY_Controller {
 		// p(DX_SHARE_PATH) ;
 		// $ss = $this->db->select('*')->from('su_admin')->get()->result_array();
 		$this->load->model('dxdb_model','ad','admin');
-		$ss = $this->ad->one(array('aid'=>1));
-		var_dump($ss);exit;
+		$ss = $this->ad->one(array('uid'=>1),false);
+		var_dump($ss->uid);exit;
 		$this->load->view('welcome_message');
 	}
 }

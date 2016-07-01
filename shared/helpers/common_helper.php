@@ -377,5 +377,33 @@ if (!function_exists('get_thumb')) {
        
 	}
 }
+/**
+ * 成功提示函数
+ * @param  [type] $url [跳转地址]
+ * @param  [type] $msg [提示信息]
+ * @return [type]      [description]
+ */
+if ( ! function_exists('success'))
+{
+function success($url, $msg){
+	header('Content-Type:text/html;charset=utf-8');
+	$url = site_url($url);
+	echo "<script type='text/javascript'>alert('$msg');location.href='$url'</script>";
+	exit();
+}
+}
+/**
+ * 错误提示函数
+ * @param  [type] $msg [提示信息]
+ * @return [type]      [description]
+ */
+if ( ! function_exists('error'))
+{
+	function error($msg){
+		header('Content-Type:text/html;charset=utf-8');
+		echo "<script type='text/javascript'>alert('$msg');window.history.back();</script>";
+		exit();
+	}
+ } 
 
 
