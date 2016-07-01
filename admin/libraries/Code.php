@@ -42,7 +42,7 @@ class Code{
         if(!empty($arr)){
            extract($arr); 
         } 
-        $this->font = BASEPATH . "../static/fonts/DIN-Regular.ttf";       
+        $this->font = BASEPATH . "fonts/texb.ttf";   
         if (!is_file($this->font)) {
             echo ("验证码字体文件不存在");
         }
