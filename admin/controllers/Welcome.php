@@ -10,9 +10,283 @@ class Welcome extends MY_Controller {
 	{
 		// p(DX_SHARE_PATH) ;
 		// $ss = $this->db->select('*')->from('su_admin')->get()->result_array();
-		$this->load->model('dxdb_model','ad','admin');
-		$ss = $this->ad->one(array('uid'=>1),false);
-		var_dump($ss->uid);exit;
-		$this->load->view('welcome_message');
+		// $this->load->model('dxdb_model','ad','admin');
+		// $ss = $this->ad->one(array('uid'=>1),false);
+		// var_dump($ss->uid);exit;
+		// $this->load->view('welcome_message');
+		$table = $this->db->dbprefix('node');
+		$uid = $this->session->userdata('uid');	
+		$sql = "SELECT n.nid,n.title FROM {$table} AS n WHERE n.state=1 AND n.pid=0";
+		$data['node'] = $this->db->query($sql)->result_array();
+		$this->load->view('admin/index',$data);
 	}
+
+	    /**
+	     * 获取菜单
+	     */
+	    public function get_child_menu()
+	    {
+	    	$pid = $this->input->get('pid');
+	    	$table = $this->db->dbprefix('node');
+	        $showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1")->result_array();
+	        $childMenuData = channelLevel($showMenuData, $pid, '', 'nid');
+	        $html = "<div class='nid_$pid'>";
+	        foreach ($childMenuData as $menu) {
+	            $html .= "<dl><dt>" . $menu['title'] . "</dt>";
+	            foreach ($menu['data'] as $linkMenu) {
+	                $param = $linkMenu['param'] ? '/' . $linkMenu['param'] : '';
+	                    $url = base_url()."index.php/".$linkMenu['control']."/".$linkMenu['method'].$param;
+	                $html .= "<dd><a nid='" . $linkMenu["nid"] . "'
+	                    onclick='get_content(this," . $linkMenu["nid"] . ")' url='" . $url . "'>" . $linkMenu['title'] . "</a></dd>";
+	            }
+	            $html .= "</dl>";
+	        }
+	        $html .= "</div>";
+	       echo $html;
+
+	    	exit();
+	    }
+	    /**
+	     * 欢迎页面
+	     */
+	    public function xiao()
+		{
+			$this->load->view('admin/welcome');
+		}
+		public function xiao_w()
+		{
+			$this->load->view('admin/welcome1');
+		}
+		/**
+		 * 密码修改
+		 */
+
+		public function change_pass()
+		{
+			if(IS_POST)
+			{
+				$new_pwd = $this->input->post('newPwd');
+				$data = array(
+					'password' => md5($new_pwd)
+				);
+				$uid = $this->session->userdata('uid');
+				$flag = $this->db->update('admin', $data, array('uid'=>$uid));
+				if($flag)
+				{
+					$this->session->sess_destroy();
+					// $this->success('修改密码成功','login');
+					echo "<script>alert('修改密码成功');top.location.reload();</script>";				
+				}
+				else
+				{
+					$this->error('修改密码不成功');
+				}
+			}
+			else
+			{
+				$this->load->view('admin/change_pwd');
+			}
+
+		}
+
+		/**
+		 * check this password
+		 */
+		public function check_password()
+		{
+			if ($this->input->is_ajax_request()) 
+			{
+				$old = trim($this->input->post('oldPwd'));
+				$uid = $this->session->userdata('uid');
+				$info = $this->db->select('password')->from('admin')->where(array('uid'=>$uid))->get()->row();
+				if(md5($old) == $info->password)
+				    echo 1;
+				 else
+				    echo 0;
+				 exit();
+			}
+			else
+			{
+				echo 0;
+				exit();
+			}
+		}
+
+		/**
+		 * 栏目管理
+		 */
+		public function category()
+		{
+			$data['category'] = limitless($this->categorys);
+			// p($data);
+			$this->load->view('admin/category',$data);
+		}
+
+		/**
+		 * 添加栏目
+		 */
+		public function category_add()
+		{
+
+			if(IS_POST)
+			{
+			    $data = array();//表单内容
+			    $data = $this->get_cat_data();
+			    $this->db->insert('category',$data);
+			    $this->success('welcome/category','添加成功');
+			}
+			else
+			{
+			    $tmp_id = $this->uri->segment(3);
+			    $data['pid'] = is_numeric($tmp_id) ? $tmp_id : false;
+				$data['category'] = limitless($this->categorys);
+			    $this->load->view('admin/category_add',$data);
+			}
+		}
+
+		//栏目编辑
+		public function category_edit()
+		{
+			$cid = $this->uri->segment(3);
+			if(IS_POST)
+			{
+			    $data = array();//表单内容
+			    $data = $this->get_cat_data();
+			    $this->db->update('category',$data,array('cid'=>$cid));
+			    $this->success('welcome/category','编辑成功');
+			}
+			else
+			{
+				$data['category'] = limitless($this->categorys);
+				$data['cates'] = $this->db->get_where('category',array('cid'=>$cid))->row_array();
+				$this->load->view('admin/category_edit',$data);
+			}
+		}
+	    //栏目删除
+	    public function category_del()
+	    {
+	      $this->load->model('dxdb_model','cat','dx_category');
+	      $id = intval($this->input->post('id'));
+	      $flag = $this->cat->dx_delete(array('cid'=>$id));
+	      if($flag)
+	      {
+	        $arr['status']  = 1;
+	        $arr['message']  = "删除信息成功 :)";
+	      }
+	      else
+	      {
+	         $arr['status']  = 0;
+	        $arr['message']  = "操作失败 :(";         
+	      } 
+	      echo json_encode($arr);
+	      exit();
+	    }
+		//图片上传
+		public function cate_img_upload()
+		{
+			$image = $_POST['name'];//"goods_image"
+			$image_path = '../uploads/category';//图片路径
+			$info = $this->_upload_img($image,$image_path);
+
+			//缩略图设置   start
+			// $crop_img = $info['full_path'];
+			// $thumb_img = $info['file_path'].$info['raw_name'].'_1000_500'.$info['file_ext'];
+			// thumb($crop_img,$thumb_img, 1034, 449, 5);//缩略图
+			//缩略图结束  end
+
+			$data = array ();
+			$data ['thumb_name'] = "../uploads/category/".$info['file_name'];
+			$data ['src_name'] = base_url()."../uploads/category/".$info['file_name'];
+			$data ['name']      = $info['file_name'];
+			 
+			//整理为json格式
+			echo json_encode($data);
+			exit();
+		}
+
+		//图片删除
+		public function cate_img_del()
+		{
+			$img_url = '../uploads/category/'.trim($_POST['name']);//"goods_image"
+		    // $img_url = '../uploads/course/'.$image;
+		    // $img = pathinfo($img_url);
+		    // $thumb_url = '../uploads/course/'.$img['filename'].'_1000_500.'.$img['extension'];
+			@unlink($img_url); 
+			// @unlink($thumb_url); 
+			// 整理为json格式
+			echo 1;
+			exit();
+		}
+
+		//==================================================================================================
+	    public function site()
+	    {
+	    	$this->load->model('dxdb_model','site','le_site');
+	    	if(IS_POST)
+	    	{
+	    		$id = $this->input->post('id');
+	    		$data = $this->get_site_data();
+	    		$flag = $this->site->dx_update($data,array('id'=>$id));
+	    		update_cache('site');
+	    		$this->success('welcome/site','操作成功 :)');
+	    	}
+	    	else
+	    	{
+	    		
+	    		// $dsf =$this->platform->cache_read(DX_SHARE_PATH . 'settings/site.php');var_dump($dsf);exit();
+	    		$this->settings->load('site');
+	    		$data['site'][] = $this->settings->item('setting');
+	            if(empty($data['site']) && ! is_array($data['site']))
+	            {
+	            	$data['site'] = $this->site->all();
+	            	p($data['site']);
+	            }
+	    		$this->load->view('admin/site',$data);
+	    	}
+	    }
+		public function site_img_upload()
+		{
+			$image = $_POST['name'];//"goods_image"
+			$image_path = '../uploads/common';//图片路径
+			$info = $this->_upload_img($image,$image_path);
+			$data = array ();
+			$data ['thumb_name'] = "../uploads/common/".$info['file_name'];
+			$data ['src_name'] = base_url()."../uploads/common/".$info['file_name'];
+			$data ['name']      = $info['file_name'];
+			 
+	        $this->ajax($data);
+		}
+		public function site_img_del()
+		{
+				$img_url = '../uploads/common/'.trim($_POST['name']);
+				@unlink($img_url); 
+				echo 1;
+				exit();
+		}
+
+		private function get_site_data()
+		{
+		   return  array(
+	           'site_name'      		=> $this->input->post('site_name'),
+	           'site_domain'  			=> $this->input->post('site_domain'),
+	           'site_logo'  			=> $this->input->post('image'),
+	           'seo_description'		=> $this->input->post('seo_description'),
+	           'seo_keyword' 			=> $this->input->post('seo_keyword'),
+	           'status'                 => $this->input->post('status'),
+	           'close_reason'           => $this->input->post('close_reason')
+		    );
+		}
+
+		private function get_cat_data()
+		{
+		   return  array(
+	           'pid'      			=> $this->input->post('pid'),
+	           'cattype'  			=> $this->input->post('cattype'),
+	           'catname'  			=> $this->input->post('catname'),
+	           'catimage'			=> $this->input->post('image'),
+	           'seo_title' 			=> $this->input->post('seo_title'),
+	           'seo_description'    => $this->input->post('seo_description'),
+	           'sort'               => $this->input->post('sort')
+		    );
+		}
 }
