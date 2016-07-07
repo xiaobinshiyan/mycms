@@ -11,8 +11,10 @@ $QINIU_UP_HOST	= 'http://up.qiniu.com';
 $QINIU_RS_HOST	= 'http://rs.qbox.me';
 $QINIU_RSF_HOST	= 'http://rsf.qbox.me';
 
-$QINIU_ACCESS_KEY	= 'KUN6xYZlOAtid2MjHm90-6VFY2M7HC90ijDH4uOR';
-$QINIU_SECRET_KEY	= 'D-K57TE5hPe3krexftxLWFKmL2xbQEKA-mtkrUfB';
+$QINIU_ACCESS_KEY	= '-rkOSEPcwEhivJXxJ0PZSP7cbkMQ6OMkkhPDXzC7';
+$QINIU_SECRET_KEY	= 'hvw_oTlvAn43zX9EFlemLotq7r9IqJJpp6K3yX-T';
+		// $accessKey = '-rkOSEPcwEhivJXxJ0PZSP7cbkMQ6OMkkhPDXzC7';
+		// $secretKey = 'hvw_oTlvAn43zX9EFlemLotq7r9IqJJpp6K3yX-T';
 
-$BUCKET = "gitwiduu";
+$BUCKET = "tearsea";
 

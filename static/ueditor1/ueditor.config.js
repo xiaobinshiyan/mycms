@@ -31,11 +31,11 @@
 
         //图片上传配置区
         ,imageUrl:"http://up.qiniu.com/"             //图片上传提交地址
-        ,imagePath:"http://gitwiduu.u.qiniudn.com/"     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        ,imagePath:"http://7xo1v3.com1.z0.glb.clouddn.com/"     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         ,imageFieldName:"file"                      //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                           //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
         //,maxImageSideLength:900                   //上传图片最大允许的边长，超过会自动等比缩放,不缩放就设置一个比较大的值，更多设置在image.html中
-        ,savePath: ['gitwiduu']    //图片保存在服务器端的目录， 默认为空， 此时在上传图片时会向服务器请求保存图片的目录列表，
+        ,savePath: 'tearsea'    //图片保存在服务器端的目录， 默认为空， 此时在上传图片时会向服务器请求保存图片的目录列表，
                                                             // 如果用户不希望发送请求， 则可以在这里设置与服务器端能够对应上的目录名称列表
                                                             //比如： savePath: [ 'upload1', 'upload2' ]
 
@@ -45,7 +45,7 @@
 
         //附件上传配置区
         ,fileUrl:"http://up.qiniu.com/"              //附件上传提交地址
-        ,filePath:"http://gitwiduu.u.qiniudn.com/"                  //附件修正地址，同imagePath
+        ,filePath:"http://7xo1v3.com1.z0.glb.clouddn.com/"                  //附件修正地址，同imagePath
         ,fileFieldName:"file"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
         //远程抓取配置区
         //,catchRemoteImageEnable:true               //是否开启远程图片抓取,默认开启
@@ -57,7 +57,7 @@
 
         //图片在线管理配置区
         ,imageManagerUrl:URL + "php/image.php"       		   //图片在线管理的处理地址
-        ,imageManagerPath:"http://gitwiduu.u.qiniudn.com/"     //图片修正地址，同imagePath
+        ,imageManagerPath:"http://7xo1v3.com1.z0.glb.clouddn.com/"     //图片修正地址，同imagePath
 
         //屏幕截图配置区
         ,snapscreenHost: location.hostname                                 //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
@@ -78,19 +78,29 @@
         //,videoFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
-        , toolbars:[
-            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-                'directionalityltr', 'directionalityrtl', 'indent', '|',
-                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe','insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
-                'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-                'print', 'preview', 'searchreplace', 'help', 'drafts']
-        ]
+        , toolbars: [[
+            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline', 'removeformat', 'formatmatch', 'autotypeset', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+            'customstyle', 'paragraph', 'fontfamily', 'fontsize','indent', '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+            'link', 'unlink', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+            'simpleupload', 'insertimage', 'attachment', 'map', 'insertcode', 'spechars', '|',
+            'preview', 'help',
+        ]]
+        // , toolbars:[
+        //     ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+        //         'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+        //         'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+        //         'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+        //         'directionalityltr', 'directionalityrtl', 'indent', '|',
+        //         'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+        //         'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+        //         'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe','insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+        //         'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+        //         'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+        //         'print', 'preview', 'searchreplace', 'help', 'drafts']
+        // ]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
 //        ,labelMap:{
 //            'anchor':'', 'undo':''

@@ -12,10 +12,10 @@
 	<script src="./js/copy.js"></script>
 	<script src="./js/validate.js"></script>
 
-    <script type="text/javascript" src="<?php echo base_url().'../' ?>static/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="<?php echo base_url().'../' ?>static/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url().'../' ?>static/ueditor1/ueditor.config.js"></script>
+    <script type="text/javascript" src="<?php echo base_url().'../' ?>static/ueditor1/ueditor.all.min.js"></script>
 	<script type="text/javascript">
-		window.UEDITOR_HOME_URL = "<?php echo base_url() ?>static/ueditor/";
+		window.UEDITOR_HOME_URL = "<?php echo base_url() ?>static/ueditor1/";
 		window.onload = function(){
 			window.UEDITOR_CONFIG.initialFrameWidth = 800;
 			window.UEDITOR_CONFIG.initialFrameHeight = 300;
