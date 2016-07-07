@@ -8,12 +8,6 @@ class Welcome extends MY_Controller {
 	 */
 	public function index()
 	{
-		// p(DX_SHARE_PATH) ;
-		// $ss = $this->db->select('*')->from('su_admin')->get()->result_array();
-		// $this->load->model('dxdb_model','ad','admin');
-		// $ss = $this->ad->one(array('uid'=>1),false);
-		// var_dump($ss->uid);exit;
-		// $this->load->view('welcome_message');
 		$table = $this->db->dbprefix('node');
 		$uid = $this->session->userdata('uid');	
 		$sql = "SELECT n.nid,n.title FROM {$table} AS n WHERE n.state=1 AND n.pid=0";
@@ -49,11 +43,11 @@ class Welcome extends MY_Controller {
 	    /**
 	     * 欢迎页面
 	     */
-	    public function xiao()
+	    public function defaultPage()
 		{
 			$this->load->view('admin/welcome');
 		}
-		public function xiao_w()
+		public function sideTree()
 		{
 			$this->load->view('admin/welcome1');
 		}
@@ -74,7 +68,6 @@ class Welcome extends MY_Controller {
 				if($flag)
 				{
 					$this->session->sess_destroy();
-					// $this->success('修改密码成功','login');
 					echo "<script>alert('修改密码成功');top.location.reload();</script>";				
 				}
 				else
@@ -118,7 +111,6 @@ class Welcome extends MY_Controller {
 		public function category()
 		{
 			$data['category'] = limitless($this->categorys);
-			// p($data);
 			$this->load->view('admin/category',$data);
 		}
 
@@ -186,6 +178,9 @@ class Welcome extends MY_Controller {
 		{
 			$image = $_POST['name'];//"goods_image"
 			$image_path = '../uploads/category';//图片路径
+
+
+
 			$info = $this->_upload_img($image,$image_path);
 
 			//缩略图设置   start
@@ -200,7 +195,7 @@ class Welcome extends MY_Controller {
 			$data ['name']      = $info['file_name'];
 			 
 			//整理为json格式
-			echo json_encode($data);
+			echo json_encode($info);
 			exit();
 		}
 
@@ -221,7 +216,7 @@ class Welcome extends MY_Controller {
 		//==================================================================================================
 	    public function site()
 	    {
-	    	$this->load->model('dxdb_model','site','le_site');
+	    	$this->load->model('dxdb_model','site','site');
 	    	if(IS_POST)
 	    	{
 	    		$id = $this->input->post('id');
@@ -232,14 +227,11 @@ class Welcome extends MY_Controller {
 	    	}
 	    	else
 	    	{
-	    		
-	    		// $dsf =$this->platform->cache_read(DX_SHARE_PATH . 'settings/site.php');var_dump($dsf);exit();
-	    		$this->settings->load('site');
+	    		$dd = $this->settings->load('site');
 	    		$data['site'][] = $this->settings->item('setting');
 	            if(empty($data['site']) && ! is_array($data['site']))
 	            {
 	            	$data['site'] = $this->site->all();
-	            	p($data['site']);
 	            }
 	    		$this->load->view('admin/site',$data);
 	    	}
@@ -264,6 +256,10 @@ class Welcome extends MY_Controller {
 				exit();
 		}
 
+		/**
+		 * 获取表单网站基本信息
+		 * @return array [baseinfo]
+		 */
 		private function get_site_data()
 		{
 		   return  array(
@@ -277,6 +273,10 @@ class Welcome extends MY_Controller {
 		    );
 		}
 
+		/**
+		 * 获取表单category目录数据
+		 * @return array category info
+		 */
 		private function get_cat_data()
 		{
 		   return  array(

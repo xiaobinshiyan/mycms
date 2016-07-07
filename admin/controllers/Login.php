@@ -40,13 +40,16 @@ class Login extends CI_Controller
 	 */
 	public function login_in()
 	{
-
-		$code = $this->input->post('captcha');
-		if(!isset($_SESSION)){
-			session_start();
+		//测试环境 取消验证验证码
+		if(ENVIRONMENT !== 'development')
+		{
+			$code = $this->input->post('captcha');
+			if(!isset($_SESSION))
+			{
+				session_start();
+			}
+			if(strtoupper($code) != $_SESSION['code']) error('验证码错误');
 		}
-		if(strtoupper($code) != $_SESSION['code']) 
-			error('验证码错误');
 		$this->load->model('dxdb_model','admin','admin');
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('passwd', TRUE);
@@ -63,7 +66,7 @@ class Login extends CI_Controller
                     ->row();
                 if($throttle)
                 {
-                	//敢暴力破解就让你睡10
+                	//敢暴力破解就让你睡10分钟
                 	$this->session->set_flashdata('error','密码输入次数过多，请10分钟后重新输入');
                     redirect('login');
                 }

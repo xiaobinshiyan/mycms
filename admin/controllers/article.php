@@ -28,7 +28,9 @@ class Article extends MY_Controller {
 		    foreach ($cates as $n => $cat) 
 		    {
 		        $data = array();
-		            if ($cat['cattype'] == 1 && $cat['pid'] != 0) 
+		        //判断是否有子数据
+		        $falg = $this->have_child($cat['cid'],$cates);
+		            if ($cat['cattype'] == 1 && $cat['pid'] != 0 && $falg) 
 		            {
 		                $url = site_url('article/art_show/'.$cat['cid']).'/?ace='.rand(100000,999999);
 		            } 
@@ -171,6 +173,7 @@ class Article extends MY_Controller {
 		$addtime = strtotime($this->input->post('addtime'));
 		$data= array(
            'cid'        => $this->input->post('cid'),
+           'uid'        => $this->session->userdata('uid'),
            'title'      => $this->input->post('title'),
            'seo_title'  => $this->input->post('seo_title'),
            'desc'       => $this->input->post('desc'),
@@ -183,5 +186,20 @@ class Article extends MY_Controller {
          );
 
 		return $data;
+	}
+
+	//判断是否有自数据
+	private function have_child($cid,$data)
+	{
+		$flag = 1;
+		foreach ($data as $k => $v) 
+		{
+			if($v['pid'] == $cid)
+			{
+				$flag = 0;
+				break;
+			}
+		}
+		return $flag;
 	}
 }

@@ -64,17 +64,26 @@ class MY_Controller extends CI_Controller
 		}
 
 
-
-
-
-
-
-
-
-
-
-
-
-	
+			// 	//上传图片
+			protected function _upload_img($image,$path = "./uploads",$width = '1000',$height = '1000',$allowed_types = 'gif|jpg|png|jpeg')
+		    {
+				 $config['upload_path'] = $path;
+				 $config['allowed_types'] = $allowed_types;
+				 $config['max_size'] = '10000';
+				 $config['file_name'] = time().mt_rand(1000,9999);
+				 $config['max_width'] = $width;
+		         $config['max_height'] = $height;
+			     // 载入上传类
+			     $this->load->library('upload',$config);
+			     $this->upload->do_upload($image);
+			     $wrong = $this->upload->display_errors();
+				 if($wrong)
+				 {
+				    show_error($wrong);
+				    return FALSE;
+				 }
+				//返回信息
+				return $this->upload->data();
+		   }
 
 }

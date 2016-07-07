@@ -1,14 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 $setting['setting']=array (
   'id' => '1',
-  'site_name' => '同济大学建筑与城市规划学院',
-  'site_domain' => 'http://en.tongji-caup.org',
-  'site_logo' => '144824871181560.png',
+  'site_name' => '大朋VR-开发者官网',
+  'site_domain' => 'http://developer.deepoon.com',
+  'site_logo' => '14678820298725.png',
   'address' => 'sdf',
   'phone' => 'sdf',
   'emaill' => 'sdf',
-  'seo_keyword' => 'CAUP, College of Architecture and Urban Planning Tongji University',
-  'seo_description' => 'College of Architecture and Urban Planning Tongji University',
+  'seo_keyword' => '大朋VR-开发者官网',
+  'seo_description' => '大朋VR-开发者官网',
   'status' => '1',
   'close_reason' => '<p>网站升级中......</p>',
 );
