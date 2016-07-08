@@ -2,20 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>柏荟会VIP</title>
+	<title>大朋后台管理系统</title>
 </head>
 	<base href="<?php echo base_url().'views/style/'; ?>" />
 	<link href="./css/media.css" rel="stylesheet">
-	<link href="./css/seller_center.css" rel="stylesheet">
+	<link href="./hdjs/hdjs.css" rel="stylesheet">
 	<script src="./js/jquery-1.8.2.min.js"></script>
-	<script src="./js/media.js"></script>
-	<script src="./js/copy.js"></script>
 	<script src="./js/validate.js"></script>
-
+	<script type="text/javascript" src="./hdjs/hdjs.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url().'../' ?>static/ueditor1/ueditor.config.js"></script>
     <script type="text/javascript" src="<?php echo base_url().'../' ?>static/ueditor1/ueditor.all.min.js"></script>
 	<script type="text/javascript">
-		window.UEDITOR_HOME_URL = "<?php echo base_url() ?>static/ueditor1/";
+		window.UEDITOR_HOME_URL = "<?php echo FCPATH."../static/ueditor1/";?>";
 		window.onload = function(){
 			window.UEDITOR_CONFIG.initialFrameWidth = 800;
 			window.UEDITOR_CONFIG.initialFrameHeight = 300;
@@ -50,37 +48,29 @@
 		   	 	  <input type="text" name="site_domain" value="<?php echo $v['site_domain'] ?>" style="width:286px;"/>
 		   	 	</td>
 		   	  </tr> 
-
- 		   	   <tr>
- 		   	    <th class='w60'>网站logo</th>
- 		   	    <td>
-                     <!-- 上传图片插件 -->
- 		   	 	    <div class = 'ad_upload_input'>
- 		   	 	      	<input id="catimage" type="text" name="image" readonly onmouseover='view_image(this)' src='<?php echo base_url()."../uploads/common/".$v['site_logo'] ?>' value="<?php echo $v['site_logo'] ?>" style="width:286px;opacity:0.5" nctype="file_21">
- 		   	 	    </div>
- 	 	            <div class="ncsc-upload-btn dx_upload_btn">		   	 	           
- 	 	              <a href="javascript:void(0);">
- 	 	                <span>
- 	 	                   <input type="file" hidefocus="true" size="1" class="input-file" name="file_21" id="file_21">
- 	 	                </span>
- 	 	                <p><i class="icon-upload-alt"></i>上传</p>
- 	 	              </a>   
- 	 	            </div>   
- 	 	            <input type="button" nctype="del" class="ad_upload_del btn2" value="移除"/>  
- 		   	    </td>
+				<tr>
+ 		   	   	<th class='w100'>网站LOGO</th>
+ 		   	   	<td>
+ 		   	   	    <img src="<?php echo $v['site_logo'] ?>" class="hd-h110" id="thumbImg">
+ 		   	   	    <input type="hidden" name="image" value="<?php echo $v['site_logo'] ?>" class="w300" readonly=""> 
+ 		   	   	    <button class="hd-btn hd-btn-sm" onclick="UploadThumb(1,&quot;image&quot;)" type="button">上传图片</button>&nbsp;&nbsp;
+ 		   	   	    <button class="hd-btn hd-btn-sm" onclick="removeThumb(&quot;image&quot;)" type="button">移除图片</button>
+ 		   	   	    <span id="hd_image" class="validate-message" style="display: inline-block;"> </span>                    
+ 		   	   	</td>
  		   	   </tr>
- 		   	  	    <tr>
- 		   	     	    <th class='w100'>站点关键字</th>
- 		   	     		<td>
- 		   	     			<input type="text" name="seo_keyword" style='width:286px;' value="<?php echo $v['seo_keyword'] ?>" />
- 		   	     		</td>
- 		   	     	</tr> 
+	   	  	    <tr>
+	   	     	    <th class='w100'>站点关键字</th>
+	   	     		<td>
+	   	     			<input type="text" name="seo_keyword" style='width:286px;' value="<?php echo $v['seo_keyword'] ?>" />
+	   	     		</td>
+	   	     	</tr> 
  		   	   <tr>
- 		   	      <th class='w100'>站点描述</th>
- 		   	  	<td>
- 		   	  		<textarea name="seo_description" id= ""cols="45" rows="8"><?php echo $v['seo_description'] ?></textarea>
- 		   	  	</td>
+ 		   	      	<th class='w100'>站点描述</th>
+	 		   	  	<td>
+	 		   	  		<textarea name="seo_description" id= ""cols="45" rows="8"><?php echo $v['seo_description'] ?></textarea>
+	 		   	  	</td>
  		   	   </tr>  
+
 
 		  	<tr>
 		   	    <th class='w100'>站点状态</th>
@@ -119,8 +109,6 @@
 	</div>
 	<script src="<?php echo base_url();?>../static/ajaxfileupload/ajaxfileupload.js" ></script>
 	<script>
-	var target_url = "<?php echo site_url('welcome/site_img_upload'); ?>";
-	var delete_url = "<?php echo site_url('welcome/site_img_del'); ?>";
 		$(function(){
 		  $("form").validate({
 		    site_name: {

@@ -16,74 +16,75 @@ class MY_Controller extends CI_Controller
    */
 	public  function _check_login()
 	{
-			$username = $this->session->userdata('username');
-			$uid = $this->session->userdata('uid');
-			if(! $username || ! $uid)
-			{
-				redirect('login');
-			}
-			return true;
+		$uid = $this->session->userdata('uid');
+		$username = $this->session->userdata('username');
+		if(! $username || ! $uid)
+		{
+			redirect('login');
+		}
+		return true;
 	}
 
 	
-	   //error函数
-	    protected function error($url = '',$msg = ':(  出错了！',$time = 1)
-		{
-			$url = $url ? "window.location.href='" . site_url($url) . "'" : "window.location.href='".DX_HISTORY."'";
-		    $this->load->view('common/error',array('msg' => $msg, 'url' => $url, 'time' => $time));
-			echo $this->output->get_output();
-			exit();
-		}
-		//success函数
-	    protected function success($url = '',$msg = ':)  操作成功',$time = 1)
-		{
-			$url = $url ? "window.location.href='" . site_url($url) . "'" : "window.location.href='".DX_HISTORY."'";
-		    $this->load->view('common/success',array('msg' => $msg, 'url' => $url, 'time' => $time));
-			echo $this->output->get_output();
-			exit();
-		}
+   //error函数
+    protected function error($url = '',$msg = ':(  出错了！',$time = 1)
+	{
+		$url = $url ? "window.location.href='" . site_url($url) . "'" : "window.location.href='".DX_HISTORY."'";
+	    $this->load->view('common/error',array('msg' => $msg, 'url' => $url, 'time' => $time));
+		echo $this->output->get_output();
+		exit();
+	}
+	//success函数
+    protected function success($url = '',$msg = ':)  操作成功',$time = 1)
+	{
+		$url = $url ? "window.location.href='" . site_url($url) . "'" : "window.location.href='".DX_HISTORY."'";
+	    $this->load->view('common/success',array('msg' => $msg, 'url' => $url, 'time' => $time));
+		echo $this->output->get_output();
+		exit();
+	}
 
-		/**
-		 * Ajax输出
-		 * @param $data 数据
-		 * @param string $type 数据类型 text html xml json
-		 */
-		protected function ajax($data, $type = "JSON")
-		{
-		    $type = strtoupper($type);
-		    switch ($type) {
-		        case "HTML" :
-		        case "TEXT" :
-		            $_data = $data;
-		            break;
-		        default :
-		            $_data = json_encode($data);
-		    }
-		    echo $_data;
-		    exit;
-		}
+	/**
+	 * Ajax输出
+	 * @param $data 数据
+	 * @param string $type 数据类型 text html xml json
+	 */
+	protected function ajax($data, $type = "JSON")
+	{
+	    $type = strtoupper($type);
+	    switch ($type) {
+	        case "HTML" :
+	        case "TEXT" :
+	            $_data = $data;
+	            break;
+	        default :
+	            $_data = json_encode($data);
+	    }
+	    echo $_data;
+	    exit;
+	}
 
 
-			// 	//上传图片
-			protected function _upload_img($image,$path = "./uploads",$width = '1000',$height = '1000',$allowed_types = 'gif|jpg|png|jpeg')
-		    {
-				 $config['upload_path'] = $path;
-				 $config['allowed_types'] = $allowed_types;
-				 $config['max_size'] = '10000';
-				 $config['file_name'] = time().mt_rand(1000,9999);
-				 $config['max_width'] = $width;
-		         $config['max_height'] = $height;
-			     // 载入上传类
-			     $this->load->library('upload',$config);
-			     $this->upload->do_upload($image);
-			     $wrong = $this->upload->display_errors();
-				 if($wrong)
-				 {
-				    show_error($wrong);
-				    return FALSE;
-				 }
-				//返回信息
-				return $this->upload->data();
-		   }
+	// 	//上传图片
+	protected function _upload_img($image,$path = "./uploads",$width = '1000',$height = '1000',$allowed_types = 'gif|jpg|png|jpeg')
+    {
+		 $config['upload_path'] = $path;
+		 $config['allowed_types'] = $allowed_types;
+		 $config['max_size'] = '10000';
+		 $config['file_name'] = time().mt_rand(1000,9999);
+		 $config['max_width'] = $width;
+         $config['max_height'] = $height;
+	     // 载入上传类
+	     $this->load->library('upload',$config);
+	     $this->upload->do_upload($image);
+	     $wrong = $this->upload->display_errors();
+		 if($wrong)
+		 {
+		    show_error($wrong);
+		    return FALSE;
+		 }
+		//返回信息
+		return $this->upload->data();
+   }
+
 
 }

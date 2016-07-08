@@ -1,26 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Test extends MY_Controller {
+class Test extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->config->load('qiniu');
 	}
 
 	public function index()
 	{
-		include  DX_SHARE_PATH.'libraries/qiniu/rs.php';
-		$accessKey = '-rkOSEPcwEhivJXxJ0PZSP7cbkMQ6OMkkhPDXzC7';
-		$secretKey = 'hvw_oTlvAn43zX9EFlemLotq7r9IqJJpp6K3yX-T';
+		$data['name'] = $this->input->get('name');
+		$data['uptoken'] = $this->get_qiniu_token();
+		$data['url'] = $this->config->item('bucket_url');
+		$this->load->view('common/uploadfile',$data);
+	}
+	//获取七牛上传配置
+	protected function get_qiniu_token()
+	{
+	   	include  DX_SHARE_PATH.'libraries/qiniu/rs.php';
+	   	$accessKey  = $this->config->item('accessKey');
+	   	$secretKey = $this->config->item('secretKey');
+	   	$bucket = $this->config->item('bucket');
 
-		// $auth = new Auth($accessKey, $secretKey);
-
-		// 要上传的空间
-		$bucket = 'tearsea';
-		Qiniu_SetKeys($accessKey, $secretKey);
-		$putPolicy = new Qiniu_RS_PutPolicy($bucket);
-		$upToken = $putPolicy->Token(null);
-		$data['uptoken'] = $upToken;
-		echo $data['uptoken'];
+	   	
+	   	Qiniu_SetKeys($accessKey, $secretKey);
+	   	$putPolicy = new Qiniu_RS_PutPolicy($bucket);
+	   	$upToken = $putPolicy->Token(null);
+	   	return $upToken;
 	}
 }

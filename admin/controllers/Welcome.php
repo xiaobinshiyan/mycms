@@ -236,25 +236,6 @@ class Welcome extends MY_Controller {
 	    		$this->load->view('admin/site',$data);
 	    	}
 	    }
-		public function site_img_upload()
-		{
-			$image = $_POST['name'];//"goods_image"
-			$image_path = '../uploads/common';//图片路径
-			$info = $this->_upload_img($image,$image_path);
-			$data = array ();
-			$data ['thumb_name'] = "../uploads/common/".$info['file_name'];
-			$data ['src_name'] = base_url()."../uploads/common/".$info['file_name'];
-			$data ['name']      = $info['file_name'];
-			 
-	        $this->ajax($data);
-		}
-		public function site_img_del()
-		{
-				$img_url = '../uploads/common/'.trim($_POST['name']);
-				@unlink($img_url); 
-				echo 1;
-				exit();
-		}
 
 		/**
 		 * 获取表单网站基本信息
