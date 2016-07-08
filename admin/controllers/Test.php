@@ -16,7 +16,7 @@ class Test extends CI_Controller {
 		$this->load->view('common/uploadfile',$data);
 	}
 	//获取七牛上传配置
-	protected function get_qiniu_token()
+	private function get_qiniu_token()
 	{
 	   	include  DX_SHARE_PATH.'libraries/qiniu/rs.php';
 	   	$accessKey  = $this->config->item('accessKey');
