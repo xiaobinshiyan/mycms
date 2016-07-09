@@ -107,7 +107,7 @@
 
 	   </form>  
 	</div>
-	<script src="<?php echo base_url();?>../static/ajaxfileupload/ajaxfileupload.js" ></script>
+
 	<script>
 		$(function(){
 		  $("form").validate({

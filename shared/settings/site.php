@@ -10,5 +10,5 @@ $setting['setting']=array (
   'seo_keyword' => '大朋VR-开发者官网',
   'seo_description' => '大朋VR-开发者官网',
   'status' => '1',
-  'close_reason' => '<p style="line-height: 16px;">网站升级中......</p>',
+  'close_reason' => '<p style="line-height: 16px;"><img src="http://7xo1v3.com1.z0.glb.clouddn.com/login_bg.jpg"/>网站升级中......</p>',
 );

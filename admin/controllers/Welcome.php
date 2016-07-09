@@ -22,7 +22,7 @@ class Welcome extends MY_Controller {
 	    {
 	    	$pid = $this->input->get('pid');
 	    	$table = $this->db->dbprefix('node');
-	        $showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1")->result_array();
+	        $showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1 ORDER BY n.order")->result_array();
 	        $childMenuData = channelLevel($showMenuData, $pid, '', 'nid');
 	        $html = "<div class='nid_$pid'>";
 	        foreach ($childMenuData as $menu) {
