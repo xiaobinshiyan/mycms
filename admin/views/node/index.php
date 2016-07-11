@@ -12,9 +12,9 @@
 	<script type="text/javascript" src="./hdjs/hdjs.min.js"></script>
 <body>
 	<div class="wrap">
-	  <div class="hd-menu-list">
+	  <div class="menu_list">
 	      <ul>
-	          <li class="active"><a href="<?php echo site_url('node/index') ?>">菜单管理</a></li>
+	          <li><a class="action" href="<?php echo site_url('node/index') ?>">菜单管理</a></li>
 	          <li><a href="<?php echo site_url('node/add') ?>">添加菜单</a></li>
 	      </ul>
 	  </div>
@@ -53,14 +53,14 @@
 	                   <?php endif; ?>
 	              </td>
 	              <td style="text-align: left">
-	                  	<?php if($v['_level'] == 1): ?>
+	                  	<?php if($v['_level'] == 3): ?>
 	                      <span class="disabled">添加子菜单  | </span>
 	                    <?php else: ?>
-	                      <a href="#">添加子菜单</a> |
+	                      <a href="<?php echo site_url('node/add/'.$v['nid']); ?>">添加子菜单</a> |
 	                  	<?php endif ?>
 
 	                  <?php if($v['issystem'] == 0): ?>
-	                      <a href="#">修改</a> |
+	                      <a href="<?php echo site_url('node/edit/'.$v['nid']); ?>">修改</a> |
 	                      <a href="javascript:del(<?php echo $v['nid'] ?>)">删除</a>
 	                   <?php else: ?>
 	                      <span class="disabled">修改 | </span>
@@ -121,7 +121,7 @@
 		        shade: true,//背景遮罩
 		        shadeOpacity: 0.1,//背景透明度
 		        success: function () {//点击确定后的事件
-		            // hd_ajax('{|U:"del"}', {nid: nid}, '__URL__');
+		            hd_ajax("<?php echo site_url('node/del') ?>", {nid: nid}, "<?php echo site_url('node/index') ?>");
 		        }
 		    });
 		}

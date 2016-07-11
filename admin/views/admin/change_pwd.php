@@ -16,6 +16,14 @@
 			<tbody>
 				<tr>
 					<td class="w50">
+						管理员
+					</td>
+					<td>
+						<?php echo $_SESSION['username'] ?>
+					</td>
+				</tr>
+				<tr>
+					<td class="w50">
 						原密码
 					</td>
 					<td>
