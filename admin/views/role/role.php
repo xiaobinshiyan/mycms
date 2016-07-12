@@ -41,7 +41,7 @@
 	                  <?php if($v['rname'] !== '超级管理员'): ?>
 	                      <a href="<?php echo site_url('role/edit/'.$v['rid']); ?>">修改</a> |
 	                      <a href="javascript:del(<?php echo $v['rid'] ?>)">删除</a> |
-	                      <a href="javascript:;">权限设置</a>
+	                      <a href="<?php echo site_url('access/index/'.$v['rid']) ?>">权限设置</a>
 	                   <?php else: ?>
 	                      <span class="disabled">修改 | </span>
 	                      <span class="disabled">删除 | </span>
