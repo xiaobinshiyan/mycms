@@ -72,9 +72,9 @@ class Login extends CI_Controller
                 }
                 if ($admin->password == md5($password))
 				{
-					if (intval($admin->role) !== 1)
+					if (intval($admin->status) !== 1)
 					{
-						$this->session->set_flashdata('error', "系统限制了ROOT用户登录,请联系管理员!");
+						$this->session->set_flashdata('error', "用户状态异常,请联系管理员!");
 					}
 					else
 					{
