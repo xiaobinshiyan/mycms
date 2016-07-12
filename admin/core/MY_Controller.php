@@ -8,7 +8,7 @@ class MY_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->_check_login();
+		$this->_check_login();
 	}
   /**
    * 判断是否登陆
