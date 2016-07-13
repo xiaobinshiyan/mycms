@@ -4,6 +4,9 @@
 
 /**
  * Loader Class
+ * 扩展的核心类
+ * @author xiaobin zxbin.1990@gmail.com
+ * @created 2016/7/2
  *
  * Loads views and files
  *
