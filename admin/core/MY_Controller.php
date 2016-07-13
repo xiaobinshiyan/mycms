@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller
 	 * 判断权限
 	 * @return [type] [description]
 	 */
-	protected function _check_auth()
+	protected function _check_auth($url='welcome/defaultPage')
 	{
 		$urlArr = $this->uri->segment_array();
 		$control = $urlArr[1];
@@ -53,10 +53,14 @@ class MY_Controller extends CI_Controller
 				'rid' => $_SESSION['rid']
 				);
 			$falg = $this->db->select("*")->from('access')->where($arr)->get()->row_array();
+			if($method == 'del')
+			{
+				return (empty($falg) ? false : true);
+			}
 			$isauth = empty($falg) ? false : true;
 			if($isauth == false)
 			{
-				$this->error("welcome/defaultPage","没有操作权限");
+				$this->error($url,"没有操作权限，请联系管理员 ！");
 			}
 			return $isauth;
 		}

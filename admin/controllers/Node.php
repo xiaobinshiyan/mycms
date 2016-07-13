@@ -21,6 +21,7 @@ class Node extends MY_Controller {
 	 */
 	public function add()
 	{
+		$this->_check_auth('node/index');
 		if(IS_POST)
 		{
 			$info = $this->input->post();
@@ -52,6 +53,7 @@ class Node extends MY_Controller {
 	 */
 	public function edit()
 	{
+		$this->_check_auth('node/index');
 		$nid = $this->uri->segment(3);
 		if(IS_POST)
 		{
@@ -81,6 +83,13 @@ class Node extends MY_Controller {
 
 	public function del()
 	{
+		$fal = $this->_check_auth();
+		if($fal == false)
+		{
+			$arr['status']  = 0;
+			$arr['message']  = "你没有删除权限";
+			$this->ajax($arr);
+		}
 		$nid = $this->input->post('nid');
 		//判断是否有子元素
 		$haschild = $this->node->all(array('pid'=>$nid));
