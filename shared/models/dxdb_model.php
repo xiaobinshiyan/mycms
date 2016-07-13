@@ -16,7 +16,7 @@ class Dxdb_model extends CI_Model
 
 	/**
      * 获取单条信息
-     * @access	public
+     *@access	public
      *@param $condition 选择条件  
      *@param $flag 返回信息标识
      *@return subject or array
@@ -64,15 +64,17 @@ class Dxdb_model extends CI_Model
         }
 		return $data;
 	}
-     /**
-      * 添加信息
-      *$data  需要添加的数据 返回 id  错误返回false
-      */
-     public function dx_insert($data = array())
-     {
-     	$this->db->insert($this->table, $data);
-        return ($this->db->affected_rows()==1) ? $this->db->insert_id() : FALSE;
-     }
+  
+   /**
+    * 添加信息
+    *$data  需要添加的数据 返回 id  错误返回false
+    */
+   public function dx_insert($data = array())
+   {
+   	$this->db->insert($this->table, $data);
+      return ($this->db->affected_rows()==1) ? $this->db->insert_id() : FALSE;
+   }
+
 	/**
 	 * 更新信息
 	 *  条件  和数据
@@ -82,14 +84,15 @@ class Dxdb_model extends CI_Model
        $flag =  $this->db->update($this->table, $data, $condition);
        return $flag;
 	}
-    /**
-     * 删除信息
-     * 条件 唯一标识
-    */
-    public function dx_delete($condition = array())
-    {
-    	$this->db->where($condition)->delete($this->table);
-    	return ($this->db->affected_rows()==1) ? $this->db->affected_rows() : FALSE;
-    }
+
+  /**
+   * 删除信息
+   * 条件 唯一标识
+  */
+  public function dx_delete($condition = array())
+  {
+  	$this->db->where($condition)->delete($this->table);
+  	return ($this->db->affected_rows()==1) ? $this->db->affected_rows() : FALSE;
+  }
 
 }

@@ -53,6 +53,7 @@ class MY_Controller extends CI_Controller
 				'rid' => $_SESSION['rid']
 				);
 			$falg = $this->db->select("*")->from('access')->where($arr)->get()->row_array();
+			//删除统一方法 wei  del
 			if($method == 'del')
 			{
 				return (empty($falg) ? false : true);
@@ -60,6 +61,7 @@ class MY_Controller extends CI_Controller
 			$isauth = empty($falg) ? false : true;
 			if($isauth == false)
 			{
+				// 默认跳转到系统环境，可能不合理  ，容错 ==zaiyi
 				$this->error($url,"没有操作权限，请联系管理员 ！");
 			}
 			return $isauth;
