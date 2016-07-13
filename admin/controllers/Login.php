@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 后台登录控制器
+ * @date 2016/7/4
+ * @author xiaobin <zxbin.1990@gmail.com>
  */
 class Login extends CI_Controller
 {

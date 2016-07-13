@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+	/**
+	 * 节点控制器
+	 * @created 2016/7/10
+	 * @author xiaobin <zxbin.1990@gmail.com>
+	 */
 class Node extends MY_Controller {
 	public function __construct()
 	{

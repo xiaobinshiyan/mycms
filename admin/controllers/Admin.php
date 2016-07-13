@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+	/**
+	 * 管理员控制器.
+	 * @created 2016/7/11
+	 * @author xiaobin <zxbin.1990@gmail.com>
+	 */
 class Admin extends MY_Controller {
 
 	public function __construct()

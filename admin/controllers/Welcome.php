@@ -5,6 +5,8 @@ class Welcome extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
+	 * @created 2016/7/2
+	 * @author xiaobin <zxbin.1990@gmail.com>
 	 */
 	public function index()
 	{

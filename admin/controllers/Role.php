@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * 角色控制
+ * @created 2016/7/8
+ * @author xiaobin <zxbin.1990@gmail.com>
+ */
 class Role extends MY_Controller {
 
 	public function __construct()

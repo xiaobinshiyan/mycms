@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * 权限控制
+ * @created 2016/7/2
+ * @author xiaobin <zxbin.1990@gmail.com>
+ */
 class Access extends MY_Controller {
 
 	public function __construct()

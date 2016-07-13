@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+	/**
+	 * qiniu controller.
+	 * @created 2016/7/7
+	 * @author xiaobin <zxbin.1990@gmail.com>
+	 */
 class Test extends CI_Controller {
 	public function __construct()
 	{
