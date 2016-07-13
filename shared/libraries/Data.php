@@ -1,8 +1,6 @@
 <?php
 /**
  * 数据处理类
- * @package     tools_class
- * @author      后盾向军 <houdunwangxj@gmail.com>
  */
 final class Data
 {

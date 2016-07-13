@@ -41,7 +41,7 @@ class Welcome extends MY_Controller {
 	        		RIGHT JOIN su_node AS n
 	        		ON a.nid = n.nid 
 	        		WHERE n.state=1 AND (n.type= 2 OR rid={$_SESSION['rid']})
-	        		ORDER BY n.order ASC
+	        		ORDER BY n.order ASC, a.nid ASC
 	        		")->result_array();
 	        }
 
