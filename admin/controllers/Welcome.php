@@ -29,12 +29,20 @@ class Welcome extends MY_Controller {
 	    	}
 	        else
 	        {
-	        	$showMenuData = $this->db->query("SELECT * 
-	        		FROM {$table} AS n 
-	        		RIGHT JOIN (SELECT * FROM su_access WHERE rid={$_SESSION['rid']} ORDER BY nid ASC) AS a 
-	        		ON n.nid = a.nid 
-	        		WHERE n.state=1 AND n.type= 1
-	        		ORDER BY n.order ASC")->result_array();
+	        		// SELECT * 
+	        		// FROM {$table} AS n 
+	        		// RIGHT JOIN (SELECT * FROM su_access WHERE rid={$_SESSION['rid']} ORDER BY nid ASC) AS a 
+	        		// ON n.nid = a.nid 
+	        		// WHERE n.state=1 AND (n.type= 2 OR n.type=1)
+	        		// ORDER BY n.order ASC
+	        	$showMenuData = $this->db->query("
+	        		SELECT * 
+	        		FROM su_access AS a 
+	        		RIGHT JOIN su_node AS n
+	        		ON a.nid = n.nid 
+	        		WHERE n.state=1 AND (n.type= 2 OR rid={$_SESSION['rid']})
+	        		ORDER BY n.order ASC
+	        		")->result_array();
 	        }
 
 	        $childMenuData = channelLevel($showMenuData, $pid, '', 'nid');
@@ -119,115 +127,6 @@ class Welcome extends MY_Controller {
 			}
 		}
 
-		/**
-		 * 栏目管理
-		 */
-		public function category()
-		{
-			$data['category'] = limitless($this->categorys);
-			$this->load->view('admin/category',$data);
-		}
-
-		/**
-		 * 添加栏目
-		 */
-		public function category_add()
-		{
-
-			if(IS_POST)
-			{
-			    $data = array();//表单内容
-			    $data = $this->get_cat_data();
-			    $this->db->insert('category',$data);
-			    $this->success('welcome/category','添加成功');
-			}
-			else
-			{
-			    $tmp_id = $this->uri->segment(3);
-			    $data['pid'] = is_numeric($tmp_id) ? $tmp_id : false;
-				$data['category'] = limitless($this->categorys);
-			    $this->load->view('admin/category_add',$data);
-			}
-		}
-
-		//栏目编辑
-		public function category_edit()
-		{
-			$cid = $this->uri->segment(3);
-			if(IS_POST)
-			{
-			    $data = array();//表单内容
-			    $data = $this->get_cat_data();
-			    $this->db->update('category',$data,array('cid'=>$cid));
-			    $this->success('welcome/category','编辑成功');
-			}
-			else
-			{
-				$data['category'] = limitless($this->categorys);
-				$data['cates'] = $this->db->get_where('category',array('cid'=>$cid))->row_array();
-				$this->load->view('admin/category_edit',$data);
-			}
-		}
-	    //栏目删除
-	    public function category_del()
-	    {
-	      $this->load->model('dxdb_model','cat','dx_category');
-	      $id = intval($this->input->post('id'));
-	      $flag = $this->cat->dx_delete(array('cid'=>$id));
-	      if($flag)
-	      {
-	        $arr['status']  = 1;
-	        $arr['message']  = "删除信息成功 :)";
-	      }
-	      else
-	      {
-	         $arr['status']  = 0;
-	        $arr['message']  = "操作失败 :(";         
-	      } 
-	      echo json_encode($arr);
-	      exit();
-	    }
-		//图片上传
-		public function cate_img_upload()
-		{
-			$image = $_POST['name'];//"goods_image"
-			$image_path = '../uploads/category';//图片路径
-
-
-
-			$info = $this->_upload_img($image,$image_path);
-
-			//缩略图设置   start
-			// $crop_img = $info['full_path'];
-			// $thumb_img = $info['file_path'].$info['raw_name'].'_1000_500'.$info['file_ext'];
-			// thumb($crop_img,$thumb_img, 1034, 449, 5);//缩略图
-			//缩略图结束  end
-
-			$data = array ();
-			$data ['thumb_name'] = "../uploads/category/".$info['file_name'];
-			$data ['src_name'] = base_url()."../uploads/category/".$info['file_name'];
-			$data ['name']      = $info['file_name'];
-			 
-			//整理为json格式
-			echo json_encode($info);
-			exit();
-		}
-
-		//图片删除
-		public function cate_img_del()
-		{
-			$img_url = '../uploads/category/'.trim($_POST['name']);//"goods_image"
-		    // $img_url = '../uploads/course/'.$image;
-		    // $img = pathinfo($img_url);
-		    // $thumb_url = '../uploads/course/'.$img['filename'].'_1000_500.'.$img['extension'];
-			@unlink($img_url); 
-			// @unlink($thumb_url); 
-			// 整理为json格式
-			echo 1;
-			exit();
-		}
-
-		//==================================================================================================
 	    public function site()
 	    {
 	    	$this->_check_auth();
@@ -269,20 +168,4 @@ class Welcome extends MY_Controller {
 		    );
 		}
 
-		/**
-		 * 获取表单category目录数据
-		 * @return array category info
-		 */
-		private function get_cat_data()
-		{
-		   return  array(
-	           'pid'      			=> $this->input->post('pid'),
-	           'cattype'  			=> $this->input->post('cattype'),
-	           'catname'  			=> $this->input->post('catname'),
-	           'catimage'			=> $this->input->post('image'),
-	           'seo_title' 			=> $this->input->post('seo_title'),
-	           'seo_description'    => $this->input->post('seo_description'),
-	           'sort'               => $this->input->post('sort')
-		    );
-		}
 }

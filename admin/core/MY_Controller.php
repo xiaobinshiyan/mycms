@@ -40,7 +40,7 @@ class MY_Controller extends CI_Controller
 			return true;
 		}
 		//判断节点是否存在  如果不存在  那么说明不需要验证，直接返回
-		$where = array('control'=>$control,'method'=>$method);
+		$where = array('control'=>$control,'method'=>$method,'type'=>1);
 		$isexist = $this->db->select("nid")->from('node')->where($where)->get()->row_array();
 		if(empty($isexist))
 		{
