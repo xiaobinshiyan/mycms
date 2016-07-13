@@ -25,7 +25,43 @@ class MY_Controller extends CI_Controller
 		return true;
 	}
 
-	
+	/**
+	 * 判断权限
+	 * @return [type] [description]
+	 */
+	protected function _check_auth()
+	{
+		$urlArr = $this->uri->segment_array();
+		$control = $urlArr[1];
+		$method  = $urlArr[2];
+		//如果是超级管理员,那么直接返回
+		if($_SESSION['username'] == 'admin')
+		{
+			return true;
+		}
+		//判断节点是否存在  如果不存在  那么说明不需要验证，直接返回
+		$where = array('control'=>$control,'method'=>$method);
+		$isexist = $this->db->select("nid")->from('node')->where($where)->get()->row_array();
+		if(empty($isexist))
+		{
+			return true;
+		}
+		else
+		{
+			$arr = array(
+				'nid' => $isexist['nid'],
+				'rid' => $_SESSION['rid']
+				);
+			$falg = $this->db->select("*")->from('access')->where($arr)->get()->row_array();
+			$isauth = empty($falg) ? false : true;
+			if($isauth == false)
+			{
+				$this->error("welcome/defaultPage","没有操作权限");
+			}
+			return $isauth;
+		}
+	}
+
    //error函数
     protected function error($url = '',$msg = ':(  出错了！',$time = 1)
 	{

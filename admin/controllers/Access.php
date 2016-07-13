@@ -14,7 +14,7 @@ class Access extends MY_Controller {
 
 		$rid = $this->uri->segment(3);
 		$sql = "SELECT n.nid,n.title,n.pid,n.type,a.rid as access_rid FROM su_node AS n LEFT JOIN
-					(SELECT * FROM su_access WHERE rid={$rid}) AS a
+					(SELECT * FROM su_access WHERE rid={$rid} ORDER BY nid ASC) AS a
 		    		ON n.nid = a.nid ORDER BY n.order ASC";
 		$result = $this->db->query($sql)->result_array();
 
@@ -43,13 +43,22 @@ class Access extends MY_Controller {
 			$nids = $this->input->post('nid');
 			if(! empty($rid))
 			{
-				$this->acc->dx_delete(array('rid'=>$rid));
-				foreach ($nids as $v) {
-				    $data = array("rid" => $rid, "nid" => $v);
-				    $this->acc->dx_insert($data);
+				if(! empty($nids))
+				{
+					$this->acc->dx_delete(array('rid'=>$rid));
+					foreach ($nids as $v) {
+					    $data = array("rid" => $rid, "nid" => $v);
+					    $this->acc->dx_insert($data);
+					}
+					$arrinfo['status']  = 1;
+					$arrinfo['message']  = "权限设置成功";	
 				}
-				$arrinfo['status']  = 1;
-				$arrinfo['message']  = "权限设置成功";	
+				else
+				{
+					$arrinfo['status']  = 1;
+					$arrinfo['message']  = "权限设置不能为空:(";	
+				}
+
 			}
 			else
 			{

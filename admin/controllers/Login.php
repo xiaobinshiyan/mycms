@@ -83,6 +83,7 @@ class Login extends CI_Controller
 						    $sessionData = array(
 							'username'	=> $admin->username,
 							'uid'		=> $admin->uid,
+							'rid'		=> $admin->role,
 							'logintime' => time()
 							);
 							$ip = $this->getIPaddress();

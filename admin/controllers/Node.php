@@ -11,6 +11,7 @@ class Node extends MY_Controller {
 	//默认方法
 	public function index()
 	{
+		$this->_check_auth();
 		$data['nodes'] = $this->get_nodes();
 		$this->load->view("node/index",$data);
 	}

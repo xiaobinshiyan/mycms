@@ -46,7 +46,7 @@
 	                  <?php endif; ?>
 	              </td>
 	              <td>
-	                  <?php if($v['type'] == 1): ?>
+	                  <?php if($v['type'] == 2): ?>
 	                      普通菜单
 	                   <?php else: ?>
 	                      权限菜单

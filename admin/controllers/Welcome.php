@@ -22,7 +22,21 @@ class Welcome extends MY_Controller {
 	    {
 	    	$pid = $this->input->get('pid');
 	    	$table = $this->db->dbprefix('node');
-	        $showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1 ORDER BY n.order ASC")->result_array();
+	    	//当超级管理员的时候所有节点
+	    	if($_SESSION['username'] == 'admin')
+	    	{
+	    		$showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1 ORDER BY n.order ASC")->result_array();
+	    	}
+	        else
+	        {
+	        	$showMenuData = $this->db->query("SELECT * 
+	        		FROM {$table} AS n 
+	        		RIGHT JOIN (SELECT * FROM su_access WHERE rid={$_SESSION['rid']} ORDER BY nid ASC) AS a 
+	        		ON n.nid = a.nid 
+	        		WHERE n.state=1 AND n.type= 1
+	        		ORDER BY n.order ASC")->result_array();
+	        }
+
 	        $childMenuData = channelLevel($showMenuData, $pid, '', 'nid');
 	        $html = "<div class='nid_$pid'>";
 	        foreach ($childMenuData as $menu) {
@@ -216,6 +230,7 @@ class Welcome extends MY_Controller {
 		//==================================================================================================
 	    public function site()
 	    {
+	    	$this->_check_auth();
 	    	$this->load->model('dxdb_model','site','site');
 	    	if(IS_POST)
 	    	{
