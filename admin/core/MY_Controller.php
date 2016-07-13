@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 扩展核心类
+ * @created 2016/7/2
+ * @author xiaobin zxbin.1990@gmail.com
  */
 class MY_Controller extends CI_Controller
 {
