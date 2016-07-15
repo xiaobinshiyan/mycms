@@ -56,7 +56,8 @@ class MY_Controller extends CI_Controller
 				);
 			$falg = $this->db->select("*")->from('access')->where($arr)->get()->row_array();
 			//删除统一方法 wei  del
-			if($method == 'del')
+			$delFlag = stripos($method, 'del');
+			if($delFlag !== false)
 			{
 				return (empty($falg) ? false : true);
 			}

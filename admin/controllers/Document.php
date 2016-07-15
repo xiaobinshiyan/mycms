@@ -47,5 +47,4 @@ class Document extends MY_Controller {
 		return $cates;
 	}
 
-
 }
