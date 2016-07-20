@@ -48,11 +48,11 @@
 	                  	<?php if($v['_level'] == 3): ?>
 	                      <span class="disabled">添加子菜单  | </span>
 	                    <?php else: ?>
-	                      <a href="<?php echo site_url('node/add/'.$v['did']); ?>">添加子菜单</a> |
+	                      <a href="javascript:;">添加子菜单</a> |
 	                  	<?php endif ?>
 
-	                      <a href="<?php echo site_url('node/edit/'.$v['did']); ?>">修改</a> |
-	                      <a href="javascript:del(<?php echo $v['did'] ?>)">删除</a>
+	                      <a href="javascript:;">修改</a> |
+	                      <a href="javascript:;">删除</a>
 	              </td>
 	          </tr>
 			<?php endforeach; ?>
