@@ -2,5 +2,5 @@ admin/sessions/*
 environment
 admin/config/database.php
 app/config/database.php
-admin/development/*
+admin/config/development/*
 favicon.ico
