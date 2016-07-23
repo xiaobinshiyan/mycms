@@ -15,6 +15,7 @@ class Test extends CI_Controller {
 	public function index()
 	{
 		$data['name'] = $this->input->get('name');
+		$data['mid'] = $this->input->get('mid');
 		$data['uptoken'] = $this->get_qiniu_token();
 		$data['url'] = $this->config->item('bucket_url');
 		$this->load->view('common/uploadfile',$data);

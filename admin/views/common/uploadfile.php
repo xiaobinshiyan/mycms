@@ -85,7 +85,22 @@
             var token = $("#token").val();
             if ($("#file")[0].files.length > 0 && token != "") 
             {
-                Qiniu_upload($("#file")[0].files[0], token, $("#key").val());
+                // 
+                // console.log($("#file")[0].files[0].name);
+                var mid = "<?php echo $mid; ?>";  //1:图片 2：文件 3：待定
+                if(parseInt(mid) === 1)
+                {
+                    //判断是否是图片
+                    if(!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test($("#file")[0].files[0].name))
+                    {
+                       alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
+                       return false;
+                    }
+                    else
+                    {
+                        Qiniu_upload($("#file")[0].files[0], token, $("#key").val());
+                    }
+                }
             } 
             else 
             {
@@ -119,7 +134,6 @@
             display: inline-block;
             color: #666;
             margin-left: 5px;
-            /*background: url("ico.png") no-repeat 0px -200px;*/
         }
         .imagelist ul li{
             float:left;
