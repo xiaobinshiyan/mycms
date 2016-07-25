@@ -142,7 +142,7 @@ class Node extends MY_Controller {
 	public function get_nodes()
 	{
 		$this->load->library('data');
-		$allcates = $this->node->all(array(),array('order asc'));
+		$allcates = $this->node->all(array(),array('nid asc','order asc'));
 		$nodes = Data::tree($allcates, "title", "nid", "pid");
 		return $nodes;
 	}

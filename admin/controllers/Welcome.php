@@ -12,7 +12,7 @@ class Welcome extends MY_Controller {
 	{
 		$table = $this->db->dbprefix('node');
 		$uid = $this->session->userdata('uid');	
-		$sql = "SELECT n.nid,n.title FROM {$table} AS n WHERE n.state=1 AND n.pid=0";
+		$sql = "SELECT n.nid,n.title FROM {$table} AS n WHERE n.state=1 AND n.pid=0 ORDER BY n.order ASC, n.nid ASC";
 		$data['node'] = $this->db->query($sql)->result_array();
 		$this->load->view('admin/index',$data);
 	}
@@ -27,7 +27,7 @@ class Welcome extends MY_Controller {
 	    	//当超级管理员的时候所有节点
 	    	if($_SESSION['username'] == 'admin')
 	    	{
-	    		$showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1 ORDER BY n.order ASC")->result_array();
+	    		$showMenuData = $this->db->query("SELECT * FROM {$table} AS n WHERE n.state=1 ORDER BY n.order ASC, n.nid ASC")->result_array();
 	    	}
 	        else
 	        {
