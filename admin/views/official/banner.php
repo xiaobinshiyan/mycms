@@ -15,7 +15,7 @@
 	  <div class="menu_list">
 	      <ul>
 	          <li><a class="action" href="javascript:;">Banner管理</a></li>
-	          <li><a href="<?php echo site_url('banner/add') ?>">添加Banner</a></li>
+	          <li><a href="<?php echo site_url('banner/add') ?>">新增</a></li>
 	      </ul>
 	  </div>
 	  <table class="hd-table hd-table-list hd-form">
@@ -45,7 +45,7 @@
 	                  <?php endif; ?>
 	              </td>
 	              <td style="text-align: left">
-	                  	<a href="javascript:;">修改</a> |
+	                  	<a href="<?php echo site_url('banner/edit/'.$v['bid']) ?>">修改</a> |
 	                    <a href="javascript:del(<?php echo $v['bid'] ?>)">删除</a>
 	              </td>
 	          </tr>

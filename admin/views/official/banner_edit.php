@@ -21,28 +21,28 @@
 	   <div class="menu_list">
 	    <ul>
 	    	<li><a href="<?php echo site_url('banner/index') ?>">banner管理</a></li> 
-	    	<li><a class="action" href="javascript:;">新增</a></li>
+	    	<li><a class="action" href="javascript:;">编辑</a></li>
 		</ul> 
 	   </div>
-	   <form onsubmit="return hd_submit(this,'<?php echo site_url('banner/add') ?>','<?php echo site_url('banner/index') ?>')">
+	   <form onsubmit="return hd_submit(this,'<?php echo site_url('banner/edit') ?>','<?php echo site_url('banner/index') ?>')">
 			<table class="table1 hd-form">
 		   	  <tr>
 		   	    <th class='w100'>Title</th>
 		   		<td>
-		   		   <input type="text" name="btitle" value="" style="width:286px;"/>
+		   		   <input type="text" name="btitle" value="<?php echo $info['btitle'] ?>" style="width:286px;"/>
 		   		</td>
 		   	 </tr>
 		   	   <tr>
 		   	     <th class='w100'>链接地址</th>
 		   	 	<td>
-		   	 	  <input type="text" name="burl" value="<?php echo $v['site_domain'] ?>" style="width:286px;"/>
+		   	 	  <input type="text" name="burl" value="<?php echo $info['burl'] ?>" style="width:286px;"/>
 		   	 	</td>
 		   	  </tr> 
 				<tr>
  		   	   	<th class='w100'>banner图片</th>
  		   	   	<td>
- 		   	   	    <img src="./img/upload_pic.png" class="hd-h110" id="thumbImg">
- 		   	   	    <input type="hidden" name="bimg" value="" class="w300" readonly=""> 
+ 		   	   	    <img src="<?php echo $info['bimg'] ?>" class="hd-h110" id="thumbImg">
+ 		   	   	    <input type="hidden" name="bimg" value="<?php echo $info['bimg'] ?>" class="w300" readonly=""> 
  		   	   	    <button class="hd-btn hd-btn-sm" onclick="UploadThumb(1,&quot;bimg&quot;)" type="button">上传图片</button>&nbsp;&nbsp;
  		   	   	    <button class="hd-btn hd-btn-sm" onclick="removeThumb(&quot;bimg&quot;)" type="button">移除图片</button>
  		   	   	    <span id="hd_image" class="validate-message" style="display: inline-block;"> </span>                    
@@ -51,21 +51,22 @@
 			  	<tr>
 			   	    <th class='w100'>状态</th>
 			   		<td>
-				   		<input type="radio" id="radio-1" name="status" checked='true' value="1">
+				   		<input type="radio" id="radio-1" name="status" <?php if($info['status'] == 1): ?> checked='true' <?php endif ?> value="1">
 			   			<label for="radio-1">正常</label>
-			   			<input type="radio" id="radio-2" name="status" value="0">
+			   			<input type="radio" id="radio-2" name="status" <?php if($info['status'] == 0): ?> checked='true' <?php endif ?> value="0">
 			   			<label for="radio-2">关闭</label>	   	    	
 			   		</td>
 		   	    </tr>
 		   	    <tr>
 		   	    	<th>排序</th>
    	    	   		<td>
-   	    	   			<input type="text" name="sort" value="255" style="width:286px;"/>  	    	
+   	    	   			<input type="text" name="sort" value="<?php echo $info['sort'] ?>" style="width:286px;"/>  	    	
    	    	   		</td>
 		   	    </tr> 
 			   	 <tr>
 			   	    <th class='w100' style="text-indent:-9999px;">操作</th>
 			   		<td>
+			   			<input type="hidden" name="bid" value="<?php echo $info['bid'] ?>"/>
 			   		    <input type="submit" class="btn1" value=" 确定提交 "/>
 			   		</td>
 			   	 </tr>
@@ -84,7 +85,7 @@
 		   		message:"输入网站网址,如：http://www.kskdl.com，如果为空 填写:#"
 		   	},
 		    image: {
-		    	message: " 请上传图片"
+		    	message: " 请上传图片,重新上传可替换"
 		   }
 		 })   
 		});

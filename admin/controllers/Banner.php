@@ -31,7 +31,7 @@ class Banner extends MY_Controller {
 	 */
 	public function add()
 	{
-		$fal = $this->_check_auth();
+		$fal = $this->_check_auth('banner/index');
 		if(IS_POST)
 		{
 			$info = $this->input->post();
@@ -52,6 +52,34 @@ class Banner extends MY_Controller {
 		else
 		{
 			$this->load->view('official/banner_add');
+		}
+	}
+
+	public function edit()
+	{
+		$fal = $this->_check_auth('banner/index');
+		if(IS_POST)
+		{
+			$info = $this->input->post();
+			$this->checked_info($info); 
+			$flag = $this->ban->dx_update($info,array('bid'=>$info['bid']));
+	       	if($flag == false)
+	       	{
+		       	$arr['status']  = 0;
+		       	$arr['message']  = "发生未知错误 :-(";
+	       	}
+	       	else
+	       	{
+	       		$arr['status']  = 1;
+	       		$arr['message']  = "编辑成功 :-)";
+	       	}
+			$this->ajax($arr);
+		}
+		else
+		{
+			$data['nid'] = $this->uri->segment(3);
+			$data['info'] = $this->ban->one(array('bid'=>$data['nid']));
+			$this->load->view('official/banner_edit',$data);
 		}
 	}
 
