@@ -14,8 +14,8 @@
 	<div class="wrap">
 	  <div class="menu_list">
 	      <ul>
-	          <li><a class="action" href="<?php echo site_url('node/index') ?>">菜单管理</a></li>
-	          <li><a href="<?php echo site_url('node/add') ?>">添加菜单</a></li>
+	          <li><a class="action" href="javascript:;">菜单管理</a></li>
+	          <li><a href="javascript:;">添加菜单</a></li>
 	      </ul>
 	  </div>
 	  <table class="hd-table hd-table-list hd-form">
@@ -61,57 +61,57 @@
 	  </table>
 	</div>
 	<script>
-	$(function(){
-		$(".hd-sort").change(function(){
-			var val = parseInt($(this).val().trim());
-			var did = parseInt($(this).attr('nidinfo'));
-			if(val >= 0 && val <= 255)
-			{
-				$.ajax({
-					url: "<?php echo site_url('node/chagesort'); ?>",
-					data: {"sort":val,"did":did},
-					type: "POST",
-					dataType: "json",
-					success: function(e) {
-						hd_alert({
-							message: e.message,
-							timeout: 1,
-							success: function() {
-								e.status && window.location.reload();
-							}
-						})
-					}
-				})
-			}
-			else
-			{
-				hd_alert({
-					message: "数字必须介于0,255之间",
-					timeout: 1,
-					success: function() {
-						window.location.reload();
-					}
-				})
-			}
-		})
-	})
-		function del(nid) {
-		    hd_modal({
-		        width: 400,//宽度
-		        height: 200,//高度
-		        title: '提示',//标题
-		        content: '确定删除吗',//提示信息
-		        button: true,//显示按钮
-		        button_success: "确定",//确定按钮文字
-		        button_cancel: "关闭",//关闭按钮文字
-		        timeout: 0,//自动关闭时间 0：不自动关闭
-		        shade: true,//背景遮罩
-		        shadeOpacity: 0.1,//背景透明度
-		        success: function () {//点击确定后的事件
-		            hd_ajax("<?php echo site_url('node/del') ?>", {did: nid}, "<?php echo site_url('node/index') ?>");
-		        }
-		    });
-		}
+	// $(function(){
+	// 	$(".hd-sort").change(function(){
+	// 		var val = parseInt($(this).val().trim());
+	// 		var did = parseInt($(this).attr('nidinfo'));
+	// 		if(val >= 0 && val <= 255)
+	// 		{
+	// 			$.ajax({
+	// 				url: "<?php echo site_url('node/chagesort'); ?>",
+	// 				data: {"sort":val,"did":did},
+	// 				type: "POST",
+	// 				dataType: "json",
+	// 				success: function(e) {
+	// 					hd_alert({
+	// 						message: e.message,
+	// 						timeout: 1,
+	// 						success: function() {
+	// 							e.status && window.location.reload();
+	// 						}
+	// 					})
+	// 				}
+	// 			})
+	// 		}
+	// 		else
+	// 		{
+	// 			hd_alert({
+	// 				message: "数字必须介于0,255之间",
+	// 				timeout: 1,
+	// 				success: function() {
+	// 					window.location.reload();
+	// 				}
+	// 			})
+	// 		}
+	// 	})
+	// })
+	// 	function del(nid) {
+	// 	    hd_modal({
+	// 	        width: 400,//宽度
+	// 	        height: 200,//高度
+	// 	        title: '提示',//标题
+	// 	        content: '确定删除吗',//提示信息
+	// 	        button: true,//显示按钮
+	// 	        button_success: "确定",//确定按钮文字
+	// 	        button_cancel: "关闭",//关闭按钮文字
+	// 	        timeout: 0,//自动关闭时间 0：不自动关闭
+	// 	        shade: true,//背景遮罩
+	// 	        shadeOpacity: 0.1,//背景透明度
+	// 	        success: function () {//点击确定后的事件
+	// 	            hd_ajax("<?php echo site_url('node/del') ?>", {did: nid}, "<?php echo site_url('node/index') ?>");
+	// 	        }
+	// 	    });
+	// 	}
 	</script>
 </body>
 </html>
