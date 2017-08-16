@@ -79,9 +79,9 @@ class Dxdb_model extends CI_Model
 	 * 更新信息
 	 *  条件  和数据
 	 */
-	public function dx_update($data = array(),$condition = array())
+	public function dx_update($data = array(),$condition = array(),$limit = 1)
 	{
-       $flag =  $this->db->update($this->table, $data, $condition);
+       $flag =  $this->db->update($this->table, $data, $condition,$limit);
        return $flag;
 	}
 
