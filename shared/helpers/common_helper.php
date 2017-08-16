@@ -410,3 +410,42 @@ if ( ! function_exists('error'))
  } 
 
 
+ /**
+  * 去除字符串空格和回车
+  * @param  string $str 待处理字符串
+  * @return string
+  */
+ if ( ! function_exists('trimSpaceInStr'))
+ {
+	 function trimSpaceInStr($str)
+	 {
+	     $pat = array(" ", "　", "\t", "\n", "\r");
+	     $string = array("", "", "", "", "", );
+	     return str_replace($pat, $string, $str);
+	 }
+ }
+ /**
+  * IP地址获取
+  * @return string 如：192.168.1.1 失败的情况下，返回空
+  */
+ if ( ! function_exists('getClientIp'))
+ {
+	function getClientIp() {
+	     $unknown = 'unknown';
+
+	     if (getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), $unknown)) {
+	         $ip = getenv('HTTP_CLIENT_IP');
+	     } else if (getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), $unknown)) {
+	         $ip = getenv('HTTP_X_FORWARDED_FOR');
+	     } else if (getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), $unknown)) {
+	         $ip = getenv('REMOTE_ADDR');
+	     } else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], $unknown)) {
+	         $ip = $_SERVER['REMOTE_ADDR'];
+	     } else {
+	         $ip = '';
+	     }
+
+	     return $ip;
+	 }
+}
+
