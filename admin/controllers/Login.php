@@ -88,7 +88,7 @@ class Login extends CI_Controller
 							'rid'		=> $admin->role,
 							'logintime' => time()
 							);
-							$ip = $this->getIPaddress();
+							$ip = getClientIp();
 							$time = time();
 							$this->admin->dx_update(array('lastip'=>$ip,'logintime'=>$time),array('uid'=>$admin->uid));
                             $this->session->set_userdata($sessionData);
@@ -136,36 +136,6 @@ class Login extends CI_Controller
 		redirect('login');
 	}
 
-	//获取真实Ip
-	private function getIPaddress()
-	{
-	  $IPaddress='';
-	    if (isset($_SERVER)){         
-	        if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
-	        {
-	            $IPaddress = $_SERVER["HTTP_X_FORWARDED_FOR"];
-	        } 
-	        else if (isset($_SERVER["HTTP_CLIENT_IP"])) 
-	        {
-	            $IPaddress = $_SERVER["HTTP_CLIENT_IP"];
-	        } 
-	        else 
-	        {
-	            $IPaddress = $_SERVER["REMOTE_ADDR"];
-	        }
-
-	    } else {
-	        if (getenv("HTTP_X_FORWARDED_FOR"))
-	        {
-	            $IPaddress = getenv("HTTP_X_FORWARDED_FOR");
-	        } else if (getenv("HTTP_CLIENT_IP")) {
-	            $IPaddress = getenv("HTTP_CLIENT_IP");
-	        } else {
-	            $IPaddress = getenv("REMOTE_ADDR");
-	        }
-	    }
-	    return $IPaddress;
-	}
 	/**
 	 * 退出登陆
 	 */

@@ -21,7 +21,7 @@ class Dxdb_model extends CI_Model
      *@param $flag 返回信息标识
      *@return subject or array
      */	
-	public function one($condition = array(),$flag = TRUE)
+	public function one($condition = array(),$flag = true)
 	{
 		if($flag)
 		{
@@ -72,7 +72,7 @@ class Dxdb_model extends CI_Model
    public function dx_insert($data = array())
    {
    	$this->db->insert($this->table, $data);
-      return ($this->db->affected_rows()==1) ? $this->db->insert_id() : FALSE;
+      return ($this->db->affected_rows()==1) ? $this->db->insert_id() : false;
    }
 
 	/**
@@ -91,8 +91,12 @@ class Dxdb_model extends CI_Model
   */
   public function dx_delete($condition = array())
   {
+    if(empty($condition))
+    {
+      return false;
+    }
   	$this->db->where($condition)->delete($this->table);
-  	return ($this->db->affected_rows()==1) ? $this->db->affected_rows() : FALSE;
+  	return ($this->db->affected_rows()==1) ? $this->db->affected_rows() : false;
   }
 
 }
