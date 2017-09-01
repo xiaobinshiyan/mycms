@@ -23,6 +23,10 @@ class Dxdb_model extends CI_Model
      */	
 	public function one($condition = array(),$flag = true)
 	{
+    if(empty($condition))
+    {
+      return false;
+    }
 		if($flag)
 		{
 			$data = $this->db->get_where($this->table,$condition)->row_array();
@@ -43,37 +47,37 @@ class Dxdb_model extends CI_Model
 	{
 		! empty($select)     &&  $this->db->select($select);
 		! empty($condition)  &&  $this->db->where($condition);
-         if(count($order) != 1)
-         {
-           foreach ($order as $v) {
-           	$this->db->order_by($v);
-           }
-         }
-         else
-         {
-         	$this->db->order_by($order[0]);
-         }
-        ! empty($limit)      &&  $this->db->limit($limit);
-        if($slug != NULL && $offset != NULL)
-        {
-           $data = $this->db->get($this->table,$slug,$offset)->result_array();
-        }
-        else
-        {
-		  $data = $this->db->get($this->table)->result_array();
-        }
+    if(count($order) != 1)
+    {
+      foreach ($order as $v) {
+       	$this->db->order_by($v);
+      }
+    }
+    else
+    {
+     	$this->db->order_by($order[0]);
+    }
+    ! empty($limit)     && $this->db->limit($limit);
+    if($slug != NULL && $offset != NULL)
+    {
+      $data = $this->db->get($this->table,$slug,$offset)->result_array();
+    }
+    else
+    {
+      $data = $this->db->get($this->table)->result_array();
+    }
 		return $data;
 	}
   
-   /**
-    * 添加信息
-    *$data  需要添加的数据 返回 id  错误返回false
-    */
-   public function dx_insert($data = array())
-   {
+  /**
+  * 添加信息
+  *$data  需要添加的数据 返回 id  错误返回false
+  */
+  public function dx_insert($data = array())
+  {
    	$this->db->insert($this->table, $data);
-      return ($this->db->affected_rows()==1) ? $this->db->insert_id() : false;
-   }
+    return ($this->db->affected_rows()==1) ? $this->db->insert_id() : false;
+  }
 
 	/**
 	 * 更新信息
@@ -81,8 +85,8 @@ class Dxdb_model extends CI_Model
 	 */
 	public function dx_update($data = array(),$condition = array(),$limit = 1)
 	{
-       $flag =  $this->db->update($this->table, $data, $condition,$limit);
-       return $flag;
+    $flag =  $this->db->update($this->table, $data, $condition,$limit);
+    return $flag;
 	}
 
   /**
