@@ -86,17 +86,23 @@ class Dxdb_model extends CI_Model
 	}
 
   /**
-   * 删除信息
-   * 条件 唯一标识
-  */
-  public function dx_delete($condition = array())
+   * 删除
+   * @param  array  $condition [条件]
+   * @param  [string] $limit     [limit]
+   * @return [int or bool]            [description]
+   */
+  public function dx_delete($condition = array(), $limit = NULL)
   {
     if(empty($condition))
     {
       return false;
     }
-  	$this->db->where($condition)->delete($this->table);
-  	return ($this->db->affected_rows()==1) ? $this->db->affected_rows() : false;
+    if ( ! empty($limit))
+    {
+      $this->limit($limit);
+    }
+    $this->db->where($condition)->delete($this->table);
+    return ($this->db->affected_rows()==1) ? $this->db->affected_rows() : false;
   }
 
 }
