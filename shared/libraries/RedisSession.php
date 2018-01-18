@@ -13,7 +13,7 @@ class RedisSession{
 	private $_redis = null;
 
 	//防止外界实例化
-	private function __construct($host = '511ad9aaf37c4d7a.m.cnqda.kvstore.aliyuncs.com', $port = 6379, $db = 15)
+	private function __construct($host = '**.aliyuncs.com', $port = 6379, $db = 15)
 	{
 		if(!extension_loaded('redis'))
 		    throw new \Exception("Redis Extension needed!");
@@ -22,7 +22,7 @@ class RedisSession{
 
 		//connnect to the redis
 		$this->_redis->connect($host, $port) or die("Can't connect to the Redis!");
-		$this->_redis->auth("asdQWE123");
+		$this->_redis->auth("****");
 	}
 
 	//静态工厂方法 返回此类的唯一实例
